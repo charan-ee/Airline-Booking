@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 
 <head>
     <meta charset="UTF-8">
@@ -9,6 +9,11 @@
 <body>
     <h1>Airline application</h1>
     <form action="#" th:action="@{/search}" th:object="${searchForm}" method="post">
+        <label for="departureDate">Departure Date:</label>
+        <input type="date" id="departureDate" name="departureDate" th:value="${{depDate}}"/>
+        <br />
+        <br />
+
         <label for="from">From</label>
         <input id="from" name="from" required="required" />
         <br />
