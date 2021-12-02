@@ -28,6 +28,7 @@ public class SearchController {
     public String search(String departureDate, String from, String to, Model model) {
         List<Flight> flights = searchFlights(departureDate, from, to, Data.flights);
         model.addAttribute("flights", flights);
+        model.addAttribute("depDate", departureDate);
         return "search";
     }
 

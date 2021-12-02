@@ -2,6 +2,7 @@ package com.everest.airline;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Flight {
     private long number;
@@ -9,12 +10,16 @@ public class Flight {
     private String destination;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate departureDate;
+    private LocalTime departureTime;
+    private LocalTime arrivalTime;
 
-    public Flight(long number, String source, String destination, LocalDate date) {
+    public Flight(long number, String source, String destination, LocalDate date, LocalTime departureTime, LocalTime arrivalTime) {
         this.number = number;
         this.source = source;
         this.destination = destination;
         this.departureDate = date;
+        this.arrivalTime = arrivalTime;
+        this.departureTime = departureTime;
     }
 
     public LocalDate getDepartureDate() {
@@ -37,4 +42,11 @@ public class Flight {
         return destination;
     }
 
+    public LocalTime getDepartureTime() {
+        return departureTime;
+    }
+
+    public LocalTime getArrivalTime() {
+        return arrivalTime;
+    }
 }
