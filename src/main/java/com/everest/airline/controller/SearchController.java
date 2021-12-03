@@ -1,22 +1,21 @@
-package com.everest.airline;
+package com.everest.airline.controller;
 
+import com.everest.airline.Data;
+import com.everest.airline.model.Flight;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import com.everest.airline.service.SearchService;
 
 @Controller
 public class SearchController {
-
+    private SearchService searchService;
     @RequestMapping(value = "/")
     public String home(Model model) {
         String dateToday = LocalDate.now().toString();
@@ -26,19 +25,9 @@ public class SearchController {
 
     @RequestMapping(value = "/search")
     public String search(String departureDate, String from, String to, Model model) {
-        List<Flight> flights = searchFlights(departureDate, from, to, Data.flights);
+        List<Flight> flights = searchService.searchFlights(departureDate, from, to, Data.flights);
         model.addAttribute("flights", flights);
         model.addAttribute("depDate", departureDate);
         return "search";
-    }
-
-    private List<Flight> searchFlights(String departureDate, String origin, String destination, List<Flight> flights){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-        LocalDate date = LocalDate.parse(departureDate, formatter);
-
-        List<Flight> flightStream = flights.stream()
-                .filter(flight -> (Objects.equals(flight.getSource(), origin) && Objects.equals(flight.getDestination(), destination) && flight.getDepartureDate().equals(date) ))
-                .collect(Collectors.toList());
-        return flightStream;
     }
 }

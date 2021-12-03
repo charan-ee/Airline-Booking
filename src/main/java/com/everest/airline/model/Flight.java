@@ -1,4 +1,4 @@
-package com.everest.airline;
+package com.everest.airline.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
