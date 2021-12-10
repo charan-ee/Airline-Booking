@@ -9,25 +9,25 @@ public class Flight {
     private String source;
     private String destination;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDate departureDate;
-    private LocalTime departureTime;
-    private LocalTime arrivalTime;
+    private String departureDate;
+    private String departureTime;
+    private String arrivalTime;
+    private int totalSeats;
+    private int availableSeats;
+    private int occupiedSeats;
 
-    public Flight(long number, String source, String destination, LocalDate date, LocalTime departureTime, LocalTime arrivalTime) {
+    public Flight(long number, String source, String destination, String date, String departureTime, String arrivalTime, int totalSeats) {
         this.number = number;
         this.source = source;
         this.destination = destination;
         this.departureDate = date;
         this.arrivalTime = arrivalTime;
         this.departureTime = departureTime;
+        this.totalSeats = totalSeats;
     }
 
-    public LocalDate getDepartureDate() {
+    public String getDepartureDate() {
         return departureDate;
-    }
-
-    public void setDepartureDate(LocalDate date){
-        departureDate = date;
     }
 
     public long getNumber() {
@@ -42,11 +42,15 @@ public class Flight {
         return destination;
     }
 
-    public LocalTime getDepartureTime() {
+    public String getDepartureTime() {
         return departureTime;
     }
 
-    public LocalTime getArrivalTime() {
+    public String getArrivalTime() {
         return arrivalTime;
+    }
+
+    public int getTotalSeats() {
+        return totalSeats;
     }
 }
