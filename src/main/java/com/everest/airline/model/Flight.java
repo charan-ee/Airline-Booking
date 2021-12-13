@@ -5,18 +5,18 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Flight {
-    private long number;
+    private Long number;
     private String source;
     private String destination;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private String departureDate;
     private String departureTime;
     private String arrivalTime;
-    private int totalSeats;
+    private Integer totalSeats;
     private int availableSeats;
     private int occupiedSeats;
 
-    public Flight(long number, String source, String destination, String date, String departureTime, String arrivalTime, int totalSeats) {
+    public Flight(Long number, String source, String destination, String date, String departureTime, String arrivalTime, Integer totalSeats) {
         this.number = number;
         this.source = source;
         this.destination = destination;
@@ -30,7 +30,7 @@ public class Flight {
         return departureDate;
     }
 
-    public long getNumber() {
+    public Long getNumber() {
         return number;
     }
 
@@ -50,7 +50,7 @@ public class Flight {
         return arrivalTime;
     }
 
-    public int getTotalSeats() {
+    public Integer getTotalSeats() {
         return totalSeats;
     }
 }

@@ -17,12 +17,19 @@
         <th>Arrival Time</th>
         <th>Available Seats</th>
         <tr th:each="flight:${flights}">
+            <form method="post" th:action="@{/book}" th:object="${flight}">
             <td th:text="${flight.number}"></td>
             <td th:text="${flight.source}"></td>
             <td th:text="${flight.destination}"></td>
             <td th:text="${flight.departureTime}"></td>
             <td th:text="${flight.arrivalTime}"></td>
             <td th:text="${flight.totalSeats}"></td>
+            <td>
+                <input type="number" id="passengerCount" name="passengerCount" required="required">
+                <input type="hidden" th:name="flightId" id="flightId" th:value="${flight.number}" />
+                <button type="submit" name="book" value="value">Book</button>
+            </td>
+            </form>
         </tr>
     </table>
     <br />

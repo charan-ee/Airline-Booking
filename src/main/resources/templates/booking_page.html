@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h3>Booking Results</h3>
+    <p>You have booked the below flight for [(${passengerCount})] passengers</p>
+    <table border="2">
+        <tr>
+            <th>Flight Number:</th>
+            <td th:text="${flight.number}"></td>
+        </tr>
+        <tr>
+            <th>Source:</th>
+            <td th:text="${flight.source}"></td>
+        </tr>
+        <tr>
+            <th>Destination:</th>
+            <td th:text="${flight.destination}"></td>
+        </tr>
+        <tr>
+            <th>Departure Date:</th>
+            <td th:text="${flight.departureDate}"></td>
+        </tr>
+    </table>
+
+</body>
+</html>
