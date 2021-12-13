@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
 </head>
 
 <body>
     <h1>Airline application</h1>
-    <p>Showing flights on [(${depDate})]</p>
-    <table border="1">
+    <p th:if="${error == null}">Showing flights on [(${depDate})]</p>
+    <table class="table" border="1">
         <th>Number</th>
         <th>From</th>
         <th>To</th>
@@ -32,6 +33,7 @@
             </form>
         </tr>
     </table>
+    <p class="alert alert-danger" th:if="${error != null}" th:text="${error}"></p>
     <br />
     <a th:href="@{/}">Home</a>
 </body>
