@@ -35,11 +35,6 @@ public class SearchController {
     @RequestMapping(value = "/search")
     public String search(String departureDate, String from, String to, Model model) throws IOException {
         flights = searchService.searchFlights(departureDate, from, to);
-//        if(flights.isEmpty()){
-//            model.addAttribute("noFlights", "No Flight Found");
-//            System.out.println("returning home");
-//            return "redirect:/";
-//        }
         model.addAttribute("flights", flights);
         model.addAttribute("depDate", departureDate);
         return "search";
