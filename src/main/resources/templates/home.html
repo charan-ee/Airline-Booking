@@ -9,12 +9,22 @@
 
 <body>
     <h1>Airline application</h1>
+
     <form action="#" th:action="@{/search}" th:object="${searchForm}" method="post">
         <label for="departureDate">Departure Date:</label>
         <input type="date" id="departureDate" name="departureDate" th:value="${{depDate}}"/>
         <br />
+        <label>No of Passengers</label>
+        <input type="number" id="passengerCount" name="passengerCount" required="required">
+        <br/>
+        <br/>
+        <select name="seat" id="seat">
+            <label>Seat Class</label>
+            <option th:each="i : ${seatTypes}" th:value="${i}" th:selected="${i==ECONOMIC}" th:text="${i}">
+            </option>
+        </select>
+        <br/>
         <br />
-
         <label for="from">From</label>
         <input id="from" name="from" required="required" />
         <br />

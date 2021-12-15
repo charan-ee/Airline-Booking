@@ -1,5 +1,5 @@
-1001,Hyderabad,Bangalore,2021-12-23,10:30,12:30,28
-1005,Hyderabad,Bangalore,2021-12-23,01:30,02:30,114
+1001,Hyderabad,Bangalore,2021-12-23,10:30,12:30,29
+1005,Hyderabad,Bangalore,2021-12-23,01:30,02:30,111
 1002,Goa,Bangalore,2021-12-22,11:30,12:30,38
 1003,Delhi,Bangalore,2021-12-12,09:30,12:30,40
 1004,Delhi,Goa,2021-12-23,10:30,12:30,21

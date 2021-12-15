@@ -47,7 +47,7 @@ public class DataUtil {
             StringBuilder buffer = new StringBuilder();
 
             String s;
-
+            System.out.println("writing");
             try (BufferedReader br = new BufferedReader(reader)){
                 while ((s=br.readLine()) != null){
                     buffer.append(s).append(System.lineSeparator());
