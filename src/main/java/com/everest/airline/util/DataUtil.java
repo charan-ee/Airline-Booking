@@ -26,7 +26,7 @@ public class DataUtil {
             while((readLine = fileReader.readLine()) != null){
                 String[] values = readLine.split(",");
                 if(values[1].equals(origin) && values[2].equals(destination) && values[3].equals(departureDate)) {
-                    Flight flight = new Flight(Long.parseLong(values[0]), values[1], values[2], values[3], values[4], values[5], Integer.parseInt(values[6]));
+                    Flight flight = new Flight(Long.parseLong(values[0]), values[1], values[2], values[3], values[4], values[5], Integer.parseInt(values[6]), Integer.parseInt(values[7]), Integer.parseInt(values[8]), Integer.parseInt(values[8]), Integer.parseInt(values[8]));
                     flightList.add(flight);
                 }
             }

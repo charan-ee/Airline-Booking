@@ -1,8 +1,6 @@
 package com.everest.airline.model;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Flight {
     private Long number;
@@ -14,9 +12,14 @@ public class Flight {
     private String arrivalTime;
     private Integer totalSeats;
     private int availableSeats;
-    private int occupiedSeats;
+    private Integer occupiedSeats;
+    private Integer economySeats;
+    private Integer firstClass;
+    private Integer secondClass;
 
-    public Flight(Long number, String source, String destination, String date, String departureTime, String arrivalTime, Integer totalSeats) {
+
+    public Flight(Long number, String source, String destination, String date, String departureTime, String arrivalTime, Integer totalSeats, Integer occupiedSeats,
+                  Integer ecoSeats, Integer secSeats, Integer firstSeats) {
         this.number = number;
         this.source = source;
         this.destination = destination;
@@ -24,6 +27,26 @@ public class Flight {
         this.arrivalTime = arrivalTime;
         this.departureTime = departureTime;
         this.totalSeats = totalSeats;
+        this.occupiedSeats = occupiedSeats;
+        this.economySeats = ecoSeats;
+        this.firstClass = firstSeats;
+        this.secondClass = secSeats;
+    }
+
+    public Integer getSecondClass() {
+        return secondClass;
+    }
+
+    public Integer getFirstClass() {
+        return firstClass;
+    }
+
+    public Integer getEconomySeats() {
+        return economySeats;
+    }
+
+    public Integer getOccupiedSeats() {
+        return occupiedSeats;
     }
 
     public String getDepartureDate() {

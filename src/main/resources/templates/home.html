@@ -18,8 +18,8 @@
         <input type="number" id="passengerCount" name="passengerCount" required="required">
         <br/>
         <br/>
-        <select name="seat" id="seat">
-            <label>Seat Class</label>
+        <label th:for="seatType">Seat Class</label>
+        <select th:name="seatType" th:id="seatType">
             <option th:each="i : ${seatTypes}" th:value="${i}" th:selected="${i==ECONOMIC}" th:text="${i}">
             </option>
         </select>

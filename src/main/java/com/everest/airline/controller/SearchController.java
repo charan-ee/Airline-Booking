@@ -31,6 +31,7 @@ public class SearchController {
     public String home(Model model) {
         List<String> seatTypes = Stream.of(FlightSeatType.values())
                 .map(FlightSeatType::name).collect(Collectors.toList());
+
         String dateToday = LocalDate.now().toString();
         model.addAttribute("depDate", dateToday);
         model.addAttribute("seatTypes", seatTypes);
@@ -38,11 +39,12 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/search")
-    public String search(String departureDate, String from, String to, String seat, Model model) throws IOException {
-        flights = searchService.searchFlights(departureDate, from, to);
+    public String search(String departureDate, String from, String to, String seatType, String passengerCount, Model model) throws IOException {
+        flights = searchService.searchFlights(departureDate, from, to, seatType, passengerCount);
         model.addAttribute("flights", flights);
         model.addAttribute("depDate", departureDate);
-        model.addAttribute("seatType", seat);
+        model.addAttribute("seatType", seatType);
+        model.addAttribute("passengerCount", passengerCount);
         return "search";
     }
 

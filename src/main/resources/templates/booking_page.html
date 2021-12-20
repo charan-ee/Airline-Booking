@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
     <title>Title</title>
 </head>
 <body>
@@ -25,6 +26,8 @@
             <td th:text="${flight.departureDate}"></td>
         </tr>
     </table>
+    <a th:href="@{/search}">Go Back</a>
+    <a th:href="@{/}">Home</a>
 
 </body>
 </html>

@@ -2,6 +2,7 @@ package com.everest.airline.service;
 
 import com.everest.airline.exception.FlightsUnavailableException;
 import com.everest.airline.model.Flight;
+import com.everest.airline.model.FlightSeatType;
 import com.everest.airline.util.DataUtil;
 import org.springframework.stereotype.Component;
 
@@ -16,14 +17,14 @@ import java.util.stream.Collectors;
 @Component
 public class SearchService {
     private DataUtil dataUtil = new DataUtil();
-    public List<Flight> searchFlights(String departureDate, String origin, String destination) throws IOException {
-        List<Flight> flights = readFlights(departureDate, origin, destination);
+    public List<Flight> searchFlights(String departureDate, String origin, String destination, String seatType, String passengerCount) throws IOException {
+        List<Flight> flights = readFlights(departureDate, origin, destination, seatType, passengerCount);
         if(flights.isEmpty())
             throw new FlightsUnavailableException("No flights found on your route");
         return flights;
     }
 
-    private List<Flight> readFlights(String departureDate, String origin, String destination) throws IOException {
+    private List<Flight> readFlights(String departureDate, String origin, String destination, String seatType, String passengerCount ) throws IOException {
         File flightDir = new File("/Users/charan/Documents/Task/airlines/src/main/java/com/everest/airline/flights");
         File[] files = flightDir.listFiles();
         List<Flight> flightList = new ArrayList<>();
@@ -33,8 +34,11 @@ public class SearchService {
                 try (BufferedReader fileReader = new BufferedReader(new FileReader(file))) {
                     while ((readLine = fileReader.readLine()) != null) {
                         String[] values = readLine.split(",");
-                        if (values[1].equals(origin) && values[2].equals(destination) && values[3].equals(departureDate)) {
-                            Flight flight = new Flight(Long.parseLong(values[0]), values[1], values[2], values[3], values[4], values[5], Integer.parseInt(values[6]));
+                        Flight flight = new Flight(Long.parseLong(values[0]), values[1], values[2], values[3], values[4], values[5], Integer.parseInt(values[6]), Integer.parseInt(values[7]), Integer.parseInt(values[8]), Integer.parseInt(values[9]), Integer.parseInt(values[10]));
+                        String flightSource = flight.getSource();
+                        String flightDestination = flight.getDestination();
+                        String flightDepDate = flight.getDepartureDate();
+                        if (flightSource.equals(origin) && flightDestination.equals(destination) && flightDepDate.equals(flightDepDate) && isSeatTypeAvailableForPassenger(flight, Integer.parseInt(passengerCount), seatType)) {
                             flightList.add(flight);
                         }
                     }
@@ -44,6 +48,18 @@ public class SearchService {
             }
         }
         return flightList;
+    }
+
+    private boolean isSeatTypeAvailableForPassenger(Flight flight, Integer passengerCount, String seatType) {
+        switch(FlightSeatType.valueOf(seatType)){
+            case ECONOMIC:
+                return flight.getEconomySeats() >= passengerCount;
+            case FIRST_CLASS:
+                return flight.getFirstClass() >= passengerCount;
+            case SECOND_CLASS:
+                return flight.getSecondClass()>=passengerCount;
+        }
+        return false;
     }
 
 }

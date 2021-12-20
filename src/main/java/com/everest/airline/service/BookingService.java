@@ -34,7 +34,8 @@ public class BookingService {
                     String[] values = s.split(",");
                     if(values[0].equals(String.valueOf(flightId))){
                         tempLine.append(s);
-                        values[values.length-1] = String.valueOf(flight.getTotalSeats()-passengerCount);
+                        values[6] = String.valueOf(flight.getTotalSeats()-passengerCount);
+                        values[7] = String.valueOf(Integer.parseInt(values[7]) + passengerCount);
                         updatedLine.append(String.join(",", values));
                     }
                 }
