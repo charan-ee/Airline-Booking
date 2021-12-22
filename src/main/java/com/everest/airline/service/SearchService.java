@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @Component
 public class SearchService {
     private DataUtil dataUtil = new DataUtil();
+
     public List<Flight> searchFlights(String departureDate, String origin, String destination, String seatType, String passengerCount) throws IOException {
         List<Flight> flights = readFlights(departureDate, origin, destination, seatType, passengerCount);
         if(flights.isEmpty())
@@ -34,11 +35,12 @@ public class SearchService {
                 try (BufferedReader fileReader = new BufferedReader(new FileReader(file))) {
                     while ((readLine = fileReader.readLine()) != null) {
                         String[] values = readLine.split(",");
-                        Flight flight = new Flight(Long.parseLong(values[0]), values[1], values[2], values[3], values[4], values[5], Integer.parseInt(values[6]), Integer.parseInt(values[7]), Integer.parseInt(values[8]), Integer.parseInt(values[9]), Integer.parseInt(values[10]));
+                        Flight flight = new Flight(Long.parseLong(values[0]), values[1], values[2], values[3], values[4], values[5], Integer.parseInt(values[6]), Integer.parseInt(values[7]), Integer.parseInt(values[8]), Integer.parseInt(values[9]), Integer.parseInt(values[10]), Integer.parseInt(values[11]), Integer.parseInt(values[12]), Integer.parseInt(values[13]), Integer.parseInt(values[14]), Integer.parseInt(values[15]));
                         String flightSource = flight.getSource();
                         String flightDestination = flight.getDestination();
                         String flightDepDate = flight.getDepartureDate();
                         if (flightSource.equals(origin) && flightDestination.equals(destination) && flightDepDate.equals(flightDepDate) && isSeatTypeAvailableForPassenger(flight, Integer.parseInt(passengerCount), seatType)) {
+                            flight.calculateTicketsPriceBySeatType(seatType, Integer.parseInt(passengerCount));
                             flightList.add(flight);
                         }
                     }
@@ -53,11 +55,11 @@ public class SearchService {
     private boolean isSeatTypeAvailableForPassenger(Flight flight, Integer passengerCount, String seatType) {
         switch(FlightSeatType.valueOf(seatType)){
             case ECONOMIC:
-                return flight.getEconomySeats() >= passengerCount;
+                return (flight.getEconomySeats()-flight.getOccupiedEconomySeats()) >= passengerCount;
             case FIRST_CLASS:
-                return flight.getFirstClass() >= passengerCount;
+                return (flight.getFirstClass()- flight.getOccupiedFirstClass()) >= passengerCount;
             case SECOND_CLASS:
-                return flight.getSecondClass()>=passengerCount;
+                return (flight.getSecondClass()- flight.getOccupiedSecondClass()) >= passengerCount;
         }
         return false;
     }

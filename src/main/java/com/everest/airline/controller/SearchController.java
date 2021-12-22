@@ -38,6 +38,7 @@ public class SearchController {
         return "home";
     }
 
+
     @RequestMapping(value = "/search")
     public String search(String departureDate, String from, String to, String seatType, String passengerCount, Model model) throws IOException {
         flights = searchService.searchFlights(departureDate, from, to, seatType, passengerCount);
@@ -49,15 +50,13 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/book")
-    public String book(String flightId,String passengerCount, Model model) throws IOException {
+    public String book(String flightId,String passengerCount, String seatType, Model model) throws IOException {
         List<Flight> flightList = flights.stream().filter((Flight tempFlight)->{
             return tempFlight.getNumber().equals(Long.parseLong(flightId));
         }).collect(Collectors.toList());
-        Flight flightToBook = flightList.get(0);
-        bookingService.bookFlight(flightToBook, Integer.parseInt(passengerCount));
-
+        bookingService.bookFlight(flightList.get(0), Integer.parseInt(passengerCount), seatType);
         model.addAttribute("passengerCount", passengerCount);
-        model.addAttribute("flight", flightToBook);
+        model.addAttribute("flight", flightList.get(0));
         return "booking_page";
     }
 
