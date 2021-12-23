@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -51,12 +52,12 @@ public class SearchController {
 
     @RequestMapping(value = "/book")
     public String book(String flightId,String passengerCount, String seatType, Model model) throws IOException {
-        List<Flight> flightList = flights.stream().filter((Flight tempFlight)->{
+        Flight flightToBook = flights.stream().filter((Flight tempFlight)->{
             return tempFlight.getNumber().equals(Long.parseLong(flightId));
-        }).collect(Collectors.toList());
-        bookingService.bookFlight(flightList.get(0), Integer.parseInt(passengerCount), seatType);
+        }).findFirst().orElse(null);
+        bookingService.bookFlight(flightToBook, Integer.parseInt(passengerCount), seatType);
         model.addAttribute("passengerCount", passengerCount);
-        model.addAttribute("flight", flightList.get(0));
+        model.addAttribute("flight", flightToBook);
         return "booking_page";
     }
 

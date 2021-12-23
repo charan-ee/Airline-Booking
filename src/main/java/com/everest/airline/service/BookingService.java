@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import java.io.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Component
 public class BookingService {
@@ -19,11 +18,11 @@ public class BookingService {
     private void writeFlights(Flight flight, Integer passengerCount, String seatType){
         File flightDir = new File("/Users/charan/Documents/Task/airlines/src/main/java/com/everest/airline/flights");
         List<File> files = List.of(Objects.requireNonNull(flightDir.listFiles()));
-        List<File> updateFlightDir = files.stream().filter(file -> file.getName()
-                .startsWith(String.valueOf(flight.getNumber()))).collect(Collectors.toList());
+        File updateFlightDir = files.stream().filter(file -> file.getName()
+                .startsWith(String.valueOf(flight.getNumber()))).findFirst().orElse(null);
         Long flightId = flight.getNumber();
         try{
-            FileReader reader = new FileReader(updateFlightDir.get(0));
+            FileReader reader = new FileReader(updateFlightDir);
             StringBuilder updatedLine = new StringBuilder();
             String s;
             try (BufferedReader br = new BufferedReader(reader)){
@@ -36,7 +35,7 @@ public class BookingService {
                         updatedLine.append(updatedFlight);
                     }
                 }
-                FileWriter writer = new FileWriter(updateFlightDir.get(0));
+                FileWriter writer = new FileWriter(updateFlightDir);
                 writer.write(updatedLine.toString());
                 writer.close();
             } catch (IOException e) {
