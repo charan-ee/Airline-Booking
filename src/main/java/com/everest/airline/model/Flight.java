@@ -49,6 +49,10 @@ public class Flight {
         this.baseFareSecondClass = baseFareSecondClass;
     }
 
+    public void setNumber(Long number) {
+        this.number = number;
+    }
+
     public Integer getBaseFareEconomy() {
         return baseFareEconomy;
     }
